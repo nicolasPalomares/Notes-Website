@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+	<head th:fragment="head">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}" />
+		<link rel="stylesheet" th:href="@{/static/css/styles.css}" />
+		<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	</head>
+	
+	<body class="d-flex flex-column h-100">
+	
+		<header th:fragment="header">
+			<nav class="navbar navbar-expand-lg navbarScroll navbar-dark bg-dark p-0">
+				<div class="container">
+					<div class="navbar-nav ml-auto">
+						<div class="nav-item mr-3">
+							<div class="navbar-brand">
+								<img th:src="@{../static/media/images/logo.jpg}" alt="logo" class="img-thumbnail" style="max-height: 70px;">
+							</div>
+						</div>
+					</div>
+					<div sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
+						<div class="nav-item mr-3">
+							<div class="navbar-brand">
+								<i class="nav-item fas fa-user"></i>
+								<span> [[#{navbar.welcome}]] </span>
+								<span sec:authentication="name"></span>
+							</div>
+						</div>
+					</div>
+					<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+								<a th:href="@{/}" class="nav-link m-3"> [[#{navbar.homepage}]] </a>
+							</li>
+							<li sec:authorize="!isAuthenticated()" class="nav-item">
+								<a th:href="@{/login}" class="nav-link m-3">
+									<i class="fas fa-arrow-right-from-bracket"></i> [[#{navbar.login}]]
+								</a>
+							</li>
+							<li sec:authorize="isAuthenticated()" class="nav-item">
+								<form method="POST" th:action="@{/logout}" class="m-3">
+									<a href="#" onclick="this.parentNode.submit();" class="nav-link">
+										<i class="fas fa-user-times"></i> [[#{navbar.logout}]]
+									</a>
+								</form>
+							</li>
+						</ul>
+						<ul class="navbar-nav ms-auto">
+							<li class="nav-item active mr-3">
+		                        <a th:href="@{/(lang=en)}" class="nav-link">EN</a>
+		                    </li>
+		                    <li class="nav-item active mr-3">
+		                        <a th:href="@{/(lang=es)}" class="nav-link">ES</a>
+		                    </li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		
+		<footer th:fragment="footer" class="bg-dark">
+			<div class="container d-flex justify-content-center align-items-center" style="height: 100px;">
+				<div class="col text-center">
+					<img th:src="@{../static/media/images/footerLogo.png}" alt="logo" class="text-center" style="max-height: 70px;">
+				</div>
+			</div>
+		</footer>
+		
+	</body>
+	
+</html>

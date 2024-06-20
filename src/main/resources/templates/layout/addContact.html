@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+	<head th:replace="~{layout/layout :: head}">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+	
+		<section th:fragment="addContact">
+			<div id="addContact" class="modal fade">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header bg-warning custom-yellow">
+							<h5 class="modal-title"> [[#{actions.add-contact}]] </h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<form th:action="@{/saveContact}" th:object="${contact}" method="POST" class="was-validated">
+							<div class="modal-body">
+								<div class="form-group mb-4">
+									<label for="name"> [[#{contact.name}]] </label>
+									<input type="text" class="form-control" name="name" required>
+								</div>
+								<div class="form-group mb-4">
+									<label for="number"> [[#{contact.number}]] </label>
+									<input type="number" class="form-control" name="number" required>
+								</div>
+								<div class="form-group mb-4">
+									<label for="email"> [[#{contact.email}]] [[#{actions.optional}]] </label>
+									<input type="email" class="form-control" name="email">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-warning custom-yellow" type="submit"> [[#{actions.save}]] </button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+	</body>
+	
+</html>

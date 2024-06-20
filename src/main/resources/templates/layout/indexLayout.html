@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+	<head th:replace="~{layout/layout :: head}">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+		<section th:fragment="indexLayout">
+			<div class="container content">
+				<div class="row">
+				
+					<div class="col-md-3">
+						<div class="card mt-4">
+							<div class="card-header bg-light">
+								<span class="lead">
+									[[#{index.contacts-header}]]
+								</span>
+								<div class="badge bg-primary text-wrap m-2">
+								  [[${totalContacts}]]
+								</div>
+							</div>
+							<div class="card-body custom-yellow" id="contacts">
+								<div th:if="${contacts != null and !contacts.empty}">
+									<div th:each="contact : ${contacts}">
+										<h5 class="card-title fw-bolder"> [[${contact.name}]] </h5>
+										<p class="lead card-text fst-italic"> [[${contact.number}]] </p>
+										<p class="card-text fst-italic"> [[${contact.email}]] </p>
+										<div sec:authorize="isAuthenticated()">
+											<a th:href="@{/editContact(id=${contact.id})}" class="card-link text-decoration-none">
+												<i class="fas fa-angle-double-right"></i> [[#{actions.edit}]]
+											</a>
+    										<a th:href="@{/deleteContact(id=${contact.id})}" class="card-link text-decoration-none">
+    											<i class="fas fa-angle-double-right"></i> [[#{actions.delete}]]
+    										</a>
+										</div>
+										<hr/>
+									</div>
+								</div>
+								<div th:if="${contacts == null or contacts.empty}">
+									[[#{actions.emptyList}]]
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-9">
+						<div class="card mt-4">
+							<div class="card-header bg-light">
+								<span class="lead">
+									[[#{index.notes-header}]]
+								</span>
+								<div class="badge bg-primary text-wrap m-2">
+								  [[${totalNotes}]]
+								</div>
+							</div>
+							<div class="card-body custom-yellow" id="notes">
+								<div th:if="${notes != null and !notes.empty}">
+									<div th:each="note : ${notes}">
+										<p class="card-text">
+											<small class="text-muted fs-4 fst-italic"> 
+												[[${note.date} + '    ' + ${note.time}]]  
+											</small>
+										</p>
+										<h5 class="card-title fw-bolder"> [[${note.title}]] </h5>
+										<p class="card-text fst-italic"> [[${note.content}]] </p>
+										<div sec:authorize="isAuthenticated()">
+											<a th:href="@{/editNote(id=${note.id})}" class="card-link text-decoration-none">
+												<i class="fas fa-angle-double-right"></i> [[#{actions.edit}]]
+											</a>
+    										<a th:href="@{/deleteNote(id=${note.id})}" class="card-link text-decoration-none">
+    											<i class="fas fa-angle-double-right"></i> [[#{actions.delete}]]
+    										</a>
+										</div>
+										<hr/>
+									</div>
+								</div>
+								<div th:if="${notes == null or notes.empty}">
+									[[#{actions.emptyList}]]
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+	</body>
+	
+</html>
