@@ -49,4 +49,4 @@ Edit page:
 ![edit](https://github.com/nicolasPalomares/Notes-Website/assets/106792719/0a8061b0-b5ba-4703-be39-2eb67d7f036b)
 
 
-JDK 21
+- JDK 21 -
